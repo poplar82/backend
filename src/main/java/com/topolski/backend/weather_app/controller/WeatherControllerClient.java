@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class WeatherControllerClient {
-    private static final String KEY = "##################################";
+    private static final String KEY = "4389ac31d1ed4e418c1140315212307";
 
     public ResponseEntity<Weather> getWeatherForCity(final String city) {
         try {
