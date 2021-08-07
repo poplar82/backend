@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class WeatherControllerClient {
-    private static final String KEY = "4389ac31d1ed4e418c1140315212307";
+    private static final String KEY = "###########################";
 
     public ResponseEntity<Weather> getWeatherForCity(final String city) {
         try {
@@ -121,4 +121,23 @@ public class WeatherControllerClient {
                         .asDouble())
                 .build();
     }
+    public double getTemperature(final String city) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            JsonNode jsonNode = restTemplate
+                    .getForObject(
+                            "https://api.weatherapi.com/v1/current.json?key="
+                                    + KEY
+                                    + "&q="
+                                    + city
+                                    + "&aqi=no",
+                            JsonNode.class
+                    );
+            assert jsonNode != null;
+            return jsonNode.get("current").get("temp_c").asDouble();
+        } catch (RestClientResponseException e) {
+            return 0.0;
+        }
+    }
+
 }
